@@ -129,7 +129,8 @@ def main():
     data = build(previous)
     target = pathlib.Path('public')
     target.mkdir(exist_ok=True)
-    (target/'index.html').write_bytes(pathlib.Path('index.html').read_bytes())
+    for asset in ['index.html', 'kitchen.css', 'kitchen-core.js', 'kitchen.js', 'calendar-worker.js', 'ical.min.js', 'ICAL-LICENSE.txt']:
+        (target/asset).write_bytes(pathlib.Path(asset).read_bytes())
     (target/'data.json').write_text(json.dumps(data,ensure_ascii=False,allow_nan=False),encoding='utf-8')
     for key in ['weather', *FEEDS]:
         entry = data[key]

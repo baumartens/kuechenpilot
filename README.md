@@ -6,19 +6,25 @@ Persönliche Küchen-Web-App für iPad 5 (2017), iPadOS 16.7.16 und Safari.
 
 ## Stand
 
-Phase 2: dunkles App-Design mit vier eigenständigen Ansichten, Kacheln und fester Navigation. Wetter und Nachrichten bleiben funktionsfähig. Die neue Oberfläche ist technisch geprüft; der Test dieser Version auf dem echten iPad steht noch aus. Das Gesamtprojekt ist nicht fertig.
+Phase 2 wurde vom Nutzer auf dem echten iPad bestätigt. Phase 3 ist implementiert und technisch geprüft; die Gerätefreigabe für Phase 3 steht aus. Das Gesamtprojekt ist nicht fertig. Phase 4 wird erst nach der Freigabe begonnen.
 
-Die vollständige Reihenfolge und Abnahmekriterien stehen in [ROADMAP.md](ROADMAP.md). Das Prüfprotokoll steht in [PHASE2_TESTS.md](PHASE2_TESTS.md).
+Die vollständige Reihenfolge steht in [ROADMAP.md](ROADMAP.md), das aktuelle Prüfprotokoll in [PHASE3_TESTS.md](PHASE3_TESTS.md).
 
-- **Morgen:** Wetter für Groß-Zimmern und maximal drei Nachrichten aus Deutschlandfunk, Deutsche Welle und SRF. Quellenfilter, Aktualisieren und Datenstand-Dialog.
-- **Kochen / Rezepte / Radio:** eigenständige, ausdrücklich als geplant gekennzeichnete Ansichten. Noch kein Kochbegleiter, Rezeptimport oder Radioplayer.
-- **Müllabholung / KI-Briefing:** gekennzeichnete Platzhalter im Morgen-Dashboard.
+- **Morgen:** bestehendes Wetter und maximal drei Nachrichten; nächste Abholtermine aus einer lokal importierten ICS-Datei.
+- **Rezepte:** eigene Rezepte anlegen, bearbeiten, löschen, suchen, sichern und wieder importieren.
+- **Kochen:** gespeicherte Schritte, Zutatenliste, Systemstimme zum Vorlesen und bis zu drei Timer.
+- **Radio:** hr1, hr3 und Deutschlandfunk. Start/Stopp und Senderwechsel; kein Autoplay.
+- **KI-Briefing:** weiterhin ehrlich als Phase 5 gekennzeichnet.
+
+Kalenderdateien werden direkt auf dem iPad ausgewählt. Sie werden nicht hochgeladen. Rezepte, Termine und Timer liegen im lokalen Safari-Speicher. Beim Löschen der Websitedaten gehen sie verloren: Rezepte als JSON sichern, ursprüngliche ICS-Datei aufbewahren. Es gibt keine Synchronisierung und keine garantierte Offline-App.
+
+Timer berechnen ihre Restzeit aus einem gespeicherten Endzeitpunkt. **Safari offen lassen; bei Bildschirmsperre oder im Hintergrund ist kein zuverlässiger Alarm garantiert.** Nach einem Neuladen „Alarmton testen / aktivieren“ antippen. Vorlesen nutzt die vom Gerät bereitgestellten Stimmen; die hochwertige KI-Stimme gehört erst zu Phase 5.
 
 ## Technik
 
 Keine Frameworks, externen Schriftarten oder Bilddownloads. Die App verwendet HTML, CSS, Inline-SVG und einfaches JavaScript. `index.html` enthält die App-Hülle, die vier Ansichten, den Ansichtscontroller und die Darstellung der öffentlichen Daten. Die Navigation verwendet URL-Fragmente; Browser-Zurück und direktes Öffnen einer Ansicht funktionieren ohne Server-Routing.
 
-`fetch_data.py` ruft die öffentlichen Quellen serverseitig ab. GitHub Actions veröffentlicht ausschließlich `public/`, mit `index.html` und `data.json`. Der Workflow und die Datenabrufe wurden für Phase 2 nicht geändert.
+`fetch_data.py` ruft die öffentlichen Quellen serverseitig ab. GitHub Actions veröffentlicht ausschließlich `public/`, mit einer festen Liste der App-Dateien und `data.json`. Wetter-/RSS-Logik, Zeitplan und Ausfallbehandlung bleiben unverändert.
 
 Der Zeitplan läuft zur Minute 17 und 47 jeder Stunde (UTC). GitHub kann Läufe verzögern und nach 60 Tagen ohne Repository-Aktivität deaktivieren. Unter Actions lässt sich der Workflow manuell starten oder wieder aktivieren. Die Aktualisieren-Taste lädt den veröffentlichten Stand, sie startet keinen neuen Workflow.
 
@@ -28,16 +34,23 @@ Jede Quelle behält einen eigenen Erfolgszeitpunkt. Bei Fehlern bleiben ihre vor
 
 ## Lokal prüfen
 
-Python 3.9 oder neuer; keine zusätzlichen Python-Pakete:
+Python 3.9 oder neuer und Node.js 18 oder neuer; keine zusätzlich zu installierenden Pakete:
 
 ```sh
+node --test test_kitchen.cjs
 python3 -m unittest -v test_fetch.py
 python3 fetch_data.py
 python3 -m http.server 8765 --bind 127.0.0.1 --directory public
 ```
 
-Danach `http://127.0.0.1:8765` öffnen. Nach Änderungen an `index.html` erneut nach `public/index.html` kopieren oder den Abruf ausführen. Im Browser neu laden.
+Danach `http://127.0.0.1:8765` öffnen. Nach Änderungen die geänderten App-Dateien nach `public/` kopieren oder den Abruf ausführen. Im Browser neu laden.
 
 ## Quellen
 
 Wetter: [Open-Meteo](https://open-meteo.com/), CC BY 4.0; modellbasierte Werte. Nachrichten: die offiziellen RSS-Feeds von Deutschlandfunk, Deutsche Welle und SRF, nur Schlagzeilen und Links. Noch keine KI-Zusammenfassung.
+
+## Lokale Kalenderbibliothek
+
+`ical.min.js`: unveränderte ES5-Distribution von [ICAL.js 2.2.1](https://github.com/kewisch/ical.js/tree/v2.2.1), MPL-2.0, siehe [ICAL-LICENSE.txt](ICAL-LICENSE.txt). Der zugehörige Quellcode ist über den Versionslink verfügbar. Kein CDN zur Laufzeit. Die Bibliothek wird nur beim ICS-Import in einem Worker geladen; maximal 1 MB Eingabe, begrenzte Expansion und 8 Sekunden Zeitlimit. Angezeigt wird der im Kalender angegebene Tag, keine Uhrzeit. Der gesamte Abfallkalender wird übernommen, ohne automatische Filterung auf Müllarten.
+
+Radioadressen laut [hr3](https://www.hr3.de/service/faq-zu-hr3de-v1,hilfe-124.html), [hr1-Livestream](https://www.hr3.de/service/livestream-v1,livestream-114.html) und [Deutschlandfunk](https://www.deutschlandfunk.de/livestream-100.html).

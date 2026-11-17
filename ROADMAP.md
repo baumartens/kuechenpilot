@@ -16,7 +16,7 @@ Das Gesamtprojekt ist nicht abgeschlossen. Jede Phase wird separat umgesetzt und
 
 ## Phase 2 – App-Design
 
-Implementiert; Freigabe auf dem echten iPad steht noch aus.
+Implementiert und vom Nutzer auf dem echten iPad erfolgreich geprüft und freigegeben.
 
 - Anthrazit, Holz- und Goldakzente, getrennte abgerundete Kacheln.
 - Feste Navigation und eigenständige Ansichten: Morgen, Kochen, Rezepte, Radio.
@@ -27,13 +27,13 @@ Implementiert; Freigabe auf dem echten iPad steht noch aus.
 
 ## Phase 3 – Küchenfunktionen
 
-Erst nach bestätigtem Phase-2-iPad-Test:
+Nach bestätigtem Phase-2-iPad-Test implementiert; Phase-3-Abnahme auf dem echten iPad steht aus. Phase 4 beginnt ausdrücklich erst nach dieser Freigabe.
 
-1. Müllabholung aus ICS-Kalendern.
-2. Radioplayer mit echten Streams und Start/Stopp.
-3. Rezeptverwaltung: anlegen, bearbeiten, speichern und wiederfinden.
+1. Müllabholung aus lokal importierten ICS-Dateien; Serien und Ausnahmen, zwei Jahre Vorschau.
+2. Radioplayer mit hr1, hr3 und Deutschlandfunk, echten Streams und Start/Stopp.
+3. Rezeptverwaltung: anlegen, bearbeiten, löschen, suchen, lokal speichern sowie JSON-Sicherung und Wiederimport.
 4. Schritt-für-Schritt-Kochbegleiter.
-5. Vorlesen und Timer.
+5. Vorlesen mit der vorhandenen Systemstimme und bis zu drei lokale Timer mit Pause/Fortsetzen.
 
 Abnahme mit echten ICS-Terminen, hörbarem Radio, gespeicherten Rezepten, nachvollziehbaren Kochschritten, Vorlesen und Timer auf dem iPad. Einschränkungen von Safari im Hintergrund ausdrücklich prüfen.
 
