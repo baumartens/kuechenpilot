@@ -4,7 +4,7 @@
 
 Persönliche, ressourcenschonende Küchenzentrale für iPad 5 (2017), iPadOS 16.7.16 und Safari. GitHub Pages und Actions bleiben die Basis; kein eigener Heimserver, vorerst keine iPhone-Synchronisierung. Keine API-Schlüssel oder privaten Daten im öffentlichen Repository.
 
-Das Gesamtprojekt ist nicht abgeschlossen. Jede Phase wird separat umgesetzt und technisch geprüft. Der Nutzer prüft die veröffentlichte Version auf dem echten iPad. Die nächste Phase beginnt nach dessen Bestätigung der vorherigen Phase.
+Das Gesamtprojekt ist nicht abgeschlossen. Jede Phase wird separat umgesetzt und technisch geprüft. Der Nutzer prüft die veröffentlichte Version auf dem echten iPad. Die weitere Reihenfolge richtet sich nach der ausdrücklichen Priorisierung des Nutzers.
 
 ## Phase 1 – funktionierende Grundlage
 
@@ -39,7 +39,7 @@ Abnahme mit echten ICS-Terminen, hörbarem Radio, gespeicherten Rezepten, nachvo
 
 ## Phase 4 – Rezeptimport
 
-Implementierte Teile technisch geprüft; Veröffentlichung und anschließende Geräteabnahme durch den Nutzer. Phase 5 beginnt erst nach ausdrücklicher Freigabe.
+Bewusst pausiert auf Nutzerwunsch vom 18. November 2026. Keine vollständige Geräteabnahme und keine vollständige Freigabe. Bestehende Rezeptfunktionen bleiben erhalten; automatischer YouTube-/Instagram-Import und Screenshot-Erkennung werden vorerst nicht weiterentwickelt.
 
 - YouTube-/Instagram-Link validieren und öffentliche Metadaten abrufen versuchen. Im Test: YouTube-Titel verfügbar, Videobeschreibungen beider Plattformen im Browser nicht abrufbar. Kein vollständiger automatischer Videoimport zugesagt.
 - Verlässlicher Zugangsweg: Rezeptbeschreibung selbst einfügen; lokale Textregeln erkennen Rezeptname, Zutaten, Mengen, Portionen und Schritte. Keine KI und keine erfundenen Ergänzungen; Erkennung hängt vom Textformat ab.
@@ -51,7 +51,16 @@ Implementierte Teile technisch geprüft; Veröffentlichung und anschließende Ge
 
 ## Phase 5 – „Dein Morgen. Für dich zusammengefasst.“
 
-Verbindlich vorgemerkt, noch nicht begonnen. Umsetzung erst nach vollständigem Phase-4-Test und ausdrücklicher Freigabe durch den Nutzer. Technische Anbindung und Sicherheit werden vor der Umsetzung geprüft.
+Neues Hauptziel laut Nutzerpriorisierung vom 18. November 2026. Zuerst Morgen-Dashboard entwickeln, technisch testen und veröffentlichen; danach Prüfung auf dem echten iPad. Die unvollständige Phase-4-Abnahme blockiert diesen ausdrücklich beauftragten Dashboard-Umbau nicht. E-Mail-/Kalenderzugriff, externe Dienste, Kosten und KI-Sprachdienst bleiben bis zur gesonderten Abstimmung und Freigabe unverbunden.
+
+### Erster Schritt – Morgen-Dashboard
+
+- Reihenfolge: heutige Aufgaben/Müllabholung, wichtige E-Mails und Status, persönliche Termine, Wetter Groß-Zimmern mit praktischem Tageshinweis, allgemeine Nachrichten.
+- Vorhandene lokale ICS-Daten weiterverwenden; schwarze, blaue, braune und gelbe Mülltonnensymbole, mehrere Abholarten sichtbar. Vortag: „Heute Abend rausstellen!“, Abholtag: „Abholung heute“.
+- Unverbundene Konten ehrlich kennzeichnen; keine erfundenen Anzahlen oder Termine.
+- Sichtbarer Button „Morgenbriefing starten“, bis zur Umsetzung deaktiviert und erklärt. Spätere Sprechreihenfolge entspricht der Dashboard-Priorität.
+- Anthrazit-Holz-Gold-Design, iPad 5/Safari, bestehende Küchenfunktionen erhalten.
+- Geräteabnahme der neuen Morgenansicht steht aus. Anbindungsprüfung: [MORGEN_TESTS.md](MORGEN_TESTS.md).
 
 ### Persönliches KI-Morgenbriefing
 
@@ -80,7 +89,7 @@ Verbindlich vorgemerkt, noch nicht begonnen. Umsetzung erst nach vollständigem 
 - Keine privaten Zugangsdaten, Zugriffstoken, E-Mail-Inhalte oder persönlichen Kalenderdaten in GitHub Pages, öffentlichen Build-Artefakten oder im Repository speichern.
 - Falls ein externer Dienst benötigt wird, Geheimnisse ausschließlich sicher serverseitig verwalten; minimale, lesende Berechtigungen verwenden.
 
-Diese Anforderungen ersetzen die frühere Einordnung von E-Mail und persönlichen Kalendern als erst nach Phase 5 folgende optionale Funktionen. Sie sind Bestandteil der verbindlichen Phase 5, ohne deren Umsetzung jetzt zu starten.
+Diese Anforderungen ersetzen die frühere Einordnung von E-Mail und persönlichen Kalendern als erst nach Phase 5 folgende optionale Funktionen. Sie sind Bestandteil der verbindlichen Phase 5, wobei aktuell nur die Morgenansicht umgesetzt wird.
 
 ## Architektur für spätere Phasen
 

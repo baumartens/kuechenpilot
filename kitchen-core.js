@@ -48,6 +48,30 @@ function parseCalendar(raw,ICAL,now){
  if(!rows.length)throw Error('Keine kommenden Termine in den nächsten zwei Jahren gefunden. Der bisherige Kalender bleibt erhalten.');
  return {events:rows,importedAt:new Date(now).toISOString(),through:to};
 }
-var api={dateKey:dateKey,cleanRecipe:cleanRecipe,remaining:remaining,parseCalendar:parseCalendar};
+function wasteTypes(title){
+ var t=title.toLowerCase(),types=[];
+ if(/rest|hausm[uü]ll|schwarz/.test(t))types.push({key:'rest',label:'Restmüll'});
+ if(/papier|pappe|karton|blaue?/.test(t))types.push({key:'paper',label:'Papier'});
+ if(/bio|braune?/.test(t))types.push({key:'bio',label:'Bio'});
+ if(/gelb|leichtverpack|\blvp\b|wertstoff/.test(t))types.push({key:'yellow',label:'Gelber Sack / Gelbe Tonne'});
+ return types.length?types:[{key:'unknown',label:title}];
+}
+function wasteAgenda(events,now){
+ var today=dateKey(now),tomorrow=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1),nextDay=dateKey(tomorrow);
+ var rows=events.filter(function(e){return e.date>=today;}).slice().sort(function(a,b){return a.date.localeCompare(b.date);});
+ var urgent=rows.filter(function(e){return e.date===today||e.date===nextDay;});
+ var selected=urgent.length?urgent:rows.filter(function(e){return e.date===rows[0].date;});
+ return selected.map(function(e){return {date:e.date,title:e.title,types:wasteTypes(e.title),message:e.date===today?'Abholung heute':e.date===nextDay?'Heute Abend rausstellen!':'Nächste Abholung',urgent:e.date===today||e.date===nextDay};});
+}
+function weatherAdvice(w,now){
+ if(!w||!w.ok||!w.value||!w.value.current||!w.fetchedAt||!Number.isFinite(Date.parse(w.fetchedAt))||now-Date.parse(w.fetchedAt)>7200000)return 'Kein aktueller Tageshinweis – Wetterdaten fehlen oder sind veraltet.';
+ var c=w.value.current,d=w.value.daily||{},h=[];
+ if(c.wind_speed_10m>=40)h.push('Draußen auf kräftigen Wind einstellen.');
+ if(c.temperature_2m<=3)h.push('Warm anziehen; bei Nässe auf glatte Wege achten.');
+ else if(c.temperature_2m>=28)h.push('Wasser mitnehmen und Schattenpausen einplanen.');
+ if(d.precipitation_probability_max&&d.precipitation_probability_max[0]>=50||c.weather_code>=51)h.push('Regenschutz mitnehmen.');
+ return h.length?h.join(' '):'Vor dem Losgehen Temperatur und Tagesprognose prüfen. Für längere Wege eine zusätzliche Schicht einpacken.';
+}
+var api={wasteTypes:wasteTypes,wasteAgenda:wasteAgenda,weatherAdvice:weatherAdvice,dateKey:dateKey,cleanRecipe:cleanRecipe,remaining:remaining,parseCalendar:parseCalendar};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.KitchenCore=api;
 })(typeof self!=='undefined'?self:this);
