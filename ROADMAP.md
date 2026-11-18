@@ -27,7 +27,7 @@ Implementiert und vom Nutzer auf dem echten iPad erfolgreich geprüft und freige
 
 ## Phase 3 – Küchenfunktionen
 
-Nach bestätigtem Phase-2-iPad-Test implementiert; Phase-3-Abnahme auf dem echten iPad steht aus. Phase 4 beginnt ausdrücklich erst nach dieser Freigabe.
+Implementiert und vom Nutzer auf dem echten iPad 5 vollständig getestet und freigegeben: Morgen-Dashboard, ICS-Import, Radio, Rezeptverwaltung, Kochbegleiter einschließlich Vorlesen sowie alle drei Timer. Phase 4 ist damit zur Entwicklung freigegeben.
 
 1. Müllabholung aus lokal importierten ICS-Dateien; Serien und Ausnahmen, zwei Jahre Vorschau.
 2. Radioplayer mit hr1, hr3 und Deutschlandfunk, echten Streams und Start/Stopp.
@@ -39,19 +39,48 @@ Abnahme mit echten ICS-Terminen, hörbarem Radio, gespeicherten Rezepten, nachvo
 
 ## Phase 4 – Rezeptimport
 
-- Import aus YouTube- und Instagram-Beschreibungen, soweit zugänglich.
-- Zutaten, Mengen und Kochschritte automatisch erkennen.
-- Ergebnis vor dem Speichern prüfen und bearbeiten.
-- Zugriffsfehler und nicht verfügbare Beschreibungen transparent anzeigen; manuelle Texteingabe als mögliche Rückfallebene.
-- Keine Extraktion oder Vollständigkeit behaupten, solange sie nicht mit echten Beispielen geprüft wurde.
+Implementierte Teile technisch geprüft; Veröffentlichung und anschließende Geräteabnahme durch den Nutzer. Phase 5 beginnt erst nach ausdrücklicher Freigabe.
 
-## Phase 5 – KI und Sprache
+- YouTube-/Instagram-Link validieren und öffentliche Metadaten abrufen versuchen. Im Test: YouTube-Titel verfügbar, Videobeschreibungen beider Plattformen im Browser nicht abrufbar. Kein vollständiger automatischer Videoimport zugesagt.
+- Verlässlicher Zugangsweg: Rezeptbeschreibung selbst einfügen; lokale Textregeln erkennen Rezeptname, Zutaten, Mengen, Portionen und Schritte. Keine KI und keine erfundenen Ergänzungen; Erkennung hängt vom Textformat ab.
+- Bearbeitbare Vorschau mit nummerierten Schritten, Mengenprüfung, fehlenden Angaben und nicht zugeordnetem Text.
+- Originalvideo speichern, vorhandene lokale Bibliothek erhalten, gleiche Videolinks vor zusätzlicher Speicherung bestätigen lassen.
+- Importierte Rezepte im vorhandenen Kochbegleiter verwenden; Sicherung und Wiederimport bleiben erhalten.
+- Plattformgrenzen, technische Tests und möglicher späterer externer Dienst: [PHASE4_TESTS.md](PHASE4_TESTS.md).
+- Noch offen: persönlicher iPad-Test und Freigabe; vollständiger automatischer Beschreibungsabruf benötigt eine separat geprüfte zulässige Anbindung und ist derzeit nicht verfügbar.
 
-- Persönliches KI-Morgenbriefing.
-- Natürliche, hochwertige Sprachwiedergabe.
-- Zusammenfassung mehrerer Nachrichtenquellen mit Quellenbezug.
-- Interaktive Gespräche.
-- Erst danach optionale Kalender- und E-Mail-Funktionen.
+## Phase 5 – „Dein Morgen. Für dich zusammengefasst.“
+
+Verbindlich vorgemerkt, noch nicht begonnen. Umsetzung erst nach vollständigem Phase-4-Test und ausdrücklicher Freigabe durch den Nutzer. Technische Anbindung und Sicherheit werden vor der Umsetzung geprüft.
+
+### Persönliches KI-Morgenbriefing
+
+- Persönliches Morgenbriefing mit freundlicher, natürlicher Ansprache und hochwertiger Sprachwiedergabe.
+- Mehrere Nachrichtenquellen mit Quellenbezug zusammenfassen.
+- E-Mails, persönliche Termine und bestehende Müllabholtermine integrieren.
+- Interaktive Gespräche und Rückfragen ermöglichen, etwa „Welche Termine habe ich morgen?“
+
+### E-Mail-Check
+
+- Neue E-Mails über eine sichere, ausschließlich lesende Kontoverbindung prüfen.
+- Wichtige und handlungsrelevante Nachrichten erkennen und kurz zusammenfassen.
+- Verständlich zurückmelden, wenn keine wichtigen neuen E-Mails vorliegen; einen fehlgeschlagenen Abruf klar davon unterscheiden.
+- Niemals E-Mails automatisch versenden, verändern, löschen oder als gelesen markieren.
+
+### Persönliche Termine
+
+- Termine für heute, morgen und die nächsten sieben Tage abrufen.
+- Uhrzeit und Bezeichnung anzeigen und im Morgenbriefing an bevorstehende Termine erinnern.
+- Bestehende Müllabholtermine weiterhin berücksichtigen.
+
+### Privatsphäre und Freigabe
+
+- Auf dem gemeinsam genutzten iPad private E-Mail-Inhalte nur nach ausdrücklicher Freigabe vorlesen; keine automatische Sprachausgabe dieser Inhalte.
+- Vor einer Kontoverbindung Berechtigungen, Zugriffsschutz auf dem gemeinsam genutzten Gerät, Datenübertragung, Speicherung, Widerruf und Dienstkosten prüfen und abstimmen.
+- Keine privaten Zugangsdaten, Zugriffstoken, E-Mail-Inhalte oder persönlichen Kalenderdaten in GitHub Pages, öffentlichen Build-Artefakten oder im Repository speichern.
+- Falls ein externer Dienst benötigt wird, Geheimnisse ausschließlich sicher serverseitig verwalten; minimale, lesende Berechtigungen verwenden.
+
+Diese Anforderungen ersetzen die frühere Einordnung von E-Mail und persönlichen Kalendern als erst nach Phase 5 folgende optionale Funktionen. Sie sind Bestandteil der verbindlichen Phase 5, ohne deren Umsetzung jetzt zu starten.
 
 ## Architektur für spätere Phasen
 

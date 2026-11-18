@@ -6,12 +6,13 @@ Persönliche Küchen-Web-App für iPad 5 (2017), iPadOS 16.7.16 und Safari.
 
 ## Stand
 
-Phase 2 wurde vom Nutzer auf dem echten iPad bestätigt. Phase 3 ist implementiert und technisch geprüft; die Gerätefreigabe für Phase 3 steht aus. Das Gesamtprojekt ist nicht fertig. Phase 4 wird erst nach der Freigabe begonnen.
+Phase 3 wurde vom Nutzer auf dem echten iPad 5 vollständig getestet und freigegeben. Die funktionierenden Teile von Phase 4 (Rezeptimport) sind implementiert und technisch geprüft; die Geräteabnahme steht aus. Das Gesamtprojekt ist nicht fertig. Phase 5 einschließlich E-Mail-Check, persönlicher Termine und privatem Sprachbriefing ist verbindlich in der Roadmap festgehalten, aber noch nicht begonnen; sie wartet auf die ausdrückliche Phase-4-Freigabe.
 
-Die vollständige Reihenfolge steht in [ROADMAP.md](ROADMAP.md), das aktuelle Prüfprotokoll in [PHASE3_TESTS.md](PHASE3_TESTS.md).
+Die vollständige Reihenfolge steht in [ROADMAP.md](ROADMAP.md), die Prüfprotokolle in [PHASE3_TESTS.md](PHASE3_TESTS.md) und [PHASE4_TESTS.md](PHASE4_TESTS.md).
 
 - **Morgen:** bestehendes Wetter und maximal drei Nachrichten; nächste Abholtermine aus einer lokal importierten ICS-Datei.
 - **Rezepte:** eigene Rezepte anlegen, bearbeiten, löschen, suchen, sichern und wieder importieren.
+- **Rezeptimport:** Videolink versuchen oder Beschreibung einfügen, erkannte Felder prüfen/bearbeiten und lokal speichern. Im Test liefert YouTube einen Titel; vollständige Beschreibungen von YouTube und Instagram sind im Browser nicht abrufbar. Die lokale Texterkennung benötigt keinen externen Dienst.
 - **Kochen:** gespeicherte Schritte, Zutatenliste, Systemstimme zum Vorlesen und bis zu drei Timer.
 - **Radio:** hr1, hr3 und Deutschlandfunk. Start/Stopp und Senderwechsel; kein Autoplay.
 - **KI-Briefing:** weiterhin ehrlich als Phase 5 gekennzeichnet.
@@ -37,7 +38,7 @@ Jede Quelle behält einen eigenen Erfolgszeitpunkt. Bei Fehlern bleiben ihre vor
 Python 3.9 oder neuer und Node.js 18 oder neuer; keine zusätzlich zu installierenden Pakete:
 
 ```sh
-node --test test_kitchen.cjs
+node --test test_kitchen.cjs test_import.cjs
 python3 -m unittest -v test_fetch.py
 python3 fetch_data.py
 python3 -m http.server 8765 --bind 127.0.0.1 --directory public

@@ -1,11 +1,12 @@
 (function(root){
 'use strict';
 function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function cleanSource(value){if(!value)return '';var parser=typeof RecipeImport!=='undefined'?RecipeImport:require('./recipe-import.js');return parser.videoLink(value).url;}
 function cleanRecipe(r){
  if(!r||typeof r.title!=='string'||!r.title.trim()||r.title.length>120)throw Error('Bitte einen Rezeptnamen mit höchstens 120 Zeichen eingeben.');
  if(!Number.isInteger(Number(r.servings))||Number(r.servings)<1||Number(r.servings)>100)throw Error('Portionen: Bitte eine ganze Zahl von 1 bis 100 eingeben.');
  function lines(v,max){if(!Array.isArray(v)||!v.length||v.length>max||v.some(function(s){return typeof s!=='string'||!s.trim()||s.length>2000;}))throw Error('Zutaten und Schritte brauchen jeweils mindestens eine Zeile; höchstens '+max+' Zeilen mit je 2.000 Zeichen.');return v.map(function(s){return s.trim();});}
- return {id:typeof r.id==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(r.id)?r.id:'r'+Date.now()+'_'+Math.random().toString(36).slice(2,9),title:r.title.trim(),servings:Number(r.servings),ingredients:lines(r.ingredients,100),steps:lines(r.steps,100)};
+ return {id:typeof r.id==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(r.id)?r.id:'r'+Date.now()+'_'+Math.random().toString(36).slice(2,9),title:r.title.trim(),servings:Number(r.servings),ingredients:lines(r.ingredients,100),steps:lines(r.steps,100),sourceUrl:cleanSource(r.sourceUrl)};
 }
 function remaining(timer,now){return Math.max(0,timer.paused?timer.remaining:timer.deadline-now);}
 function parseCalendar(raw,ICAL,now){
