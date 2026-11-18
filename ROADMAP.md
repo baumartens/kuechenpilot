@@ -53,14 +53,16 @@ Bewusst pausiert auf Nutzerwunsch vom 18. November 2026. Keine vollständige Ger
 
 Neues Hauptziel laut Nutzerpriorisierung vom 18. November 2026. Zuerst Morgen-Dashboard entwickeln, technisch testen und veröffentlichen; danach Prüfung auf dem echten iPad. Die unvollständige Phase-4-Abnahme blockiert diesen ausdrücklich beauftragten Dashboard-Umbau nicht. E-Mail-/Kalenderzugriff, externe Dienste, Kosten und KI-Sprachdienst bleiben bis zur gesonderten Abstimmung und Freigabe unverbunden.
 
-### Erster Schritt – Morgen-Dashboard
+### Aktueller Schritt – dynamisches Morgen-Dashboard
 
-- Reihenfolge: heutige Aufgaben/Müllabholung, wichtige E-Mails und Status, persönliche Termine, Wetter Groß-Zimmern mit praktischem Tageshinweis, allgemeine Nachrichten.
+- Zweispaltiges Tablet-Dashboard auch im Hochformat, wechselnde Breiten 60/40 und 40/60, inhaltsabhängige Kachelhöhen.
+- Oben links Müll/Aufgaben bei Abholung heute oder morgen, sonst persönlicher Start; persönliche Termine stets oben rechts. Danach Radio und Start bzw. Müll, anschließend E-Mails und Wetter, zuletzt Nachrichten über volle Breite.
+- Priorität einmal beim Laden bestimmen; keine Positionswechsel durch Timer, Kalenderaktualisierungen oder Ansichtswechsel. Neu laden übernimmt eine geänderte Priorität. Keine Animationen.
 - Vorhandene lokale ICS-Daten weiterverwenden; schwarze, blaue, braune und gelbe Mülltonnensymbole, mehrere Abholarten sichtbar. Vortag: „Heute Abend rausstellen!“, Abholtag: „Abholung heute“.
 - Unverbundene Konten ehrlich kennzeichnen; keine erfundenen Anzahlen oder Termine.
 - Sichtbarer Button „Morgenbriefing starten“, bis zur Umsetzung deaktiviert und erklärt. Spätere Sprechreihenfolge entspricht der Dashboard-Priorität.
 - Anthrazit-Holz-Gold-Design, iPad 5/Safari, bestehende Küchenfunktionen erhalten.
-- Geräteabnahme der neuen Morgenansicht steht aus. Anbindungsprüfung: [MORGEN_TESTS.md](MORGEN_TESTS.md).
+- Bisherige Morgenansicht laut Nutzer auf iPad funktionsfähig. Die neue zweispaltige Anordnung wartet auf eigene Geräteabnahme. Anbindungsprüfung: [MORGEN_TESTS.md](MORGEN_TESTS.md).
 
 ### Persönliches KI-Morgenbriefing
 

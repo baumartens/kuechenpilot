@@ -84,4 +84,12 @@ function renderPreview(){if(!importDraft)return;var r={title:$('recipe-title').v
 $('editor-back').onclick=function(){if(!confirm('Zurück zum Ausgangstext? Änderungen an dieser Vorschau werden verworfen.'))return;$('recipe-editor').close();$('recipe-importer').showModal();};
 document.addEventListener('visibilitychange',function(){if(!document.hidden)renderCalendar();});window.addEventListener('pageshow',renderCalendar);setInterval(function(){if(!document.hidden)renderCalendar();},60000);
 renderRecipes();renderCook();renderCalendar();renderTimers();
+// Choose once per page load; timer ticks, imports and navigation never move cards.
+(function arrangeMorning(){
+ var board=document.querySelector('.morning-dashboard'),urgent=C.wasteAgenda(state.calendar?state.calendar.events:[],new Date()).some(function(e){return e.urgent;});
+ var task=board.querySelector('.task-hero'),start=board.querySelector('.briefing'),appointments=board.querySelector('.appointments-tile'),radio=board.querySelector('.radio-preview'),mail=board.querySelector('.mail-tile'),weather=board.querySelector('.weather'),news=board.querySelector('.headlines');
+ var groups=[[urgent?task:start,appointments],[radio,urgent?start:task],[mail,weather],[news]];
+ groups.forEach(function(cards,i){var row=element('div',undefined,'morning-row morning-row-'+i);cards.forEach(function(card){row.appendChild(card);});board.appendChild(row);});
+ board.setAttribute('data-priority',urgent?'waste':'start');
+})();
 })();

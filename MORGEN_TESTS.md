@@ -29,3 +29,9 @@ Kosten: jetzt kein neuer Dienst, kein Konto verbunden, keine kostenpflichtige Ei
 ## iPad-Test
 
 App im bisherigen Safari öffnen und neu laden, ohne Websitedaten zu löschen. Vorhandene Mülltermine und Farben mit Kalender vergleichen; kein erneuter Import nötig, wenn dort Daten gespeichert sind. Reihenfolge, Quer-/Hochformat und Scrollen prüfen. E-Mail/Termine müssen unverbunden bleiben. Wetterhinweis und maximal drei Nachrichten prüfen. Anschließend Radio, vorhandenes Rezept/Kochbegleiter und Timer kurz öffnen. Kontoanbindung erst nach eigener gesonderter Freigabe.
+
+## Layout-Überarbeitung – 18. November 2026
+
+24 bestehende Node-Tests erneut bestanden; JavaScript-Syntax geprüft. Keine Änderung an Datenformat, ICS-Parser, Wetter-/Nachrichtenabruf, Radio-, Rezept- oder Timerlogik. Zweispaltige Darstellung mit vorhandenen Testterminen für heute und morgen bei 768 × 1024 und 1024 × 768 im Browser geprüft; keine horizontal überlaufenden Grid-Reihen. Kachelhöhen unterscheiden sich nach Inhalt. Rückkehr aus der Radioansicht erhält die gewählte Müllpriorität. Priorisierung erfolgt einmal pro Laden; spätere Kalenderänderungen verändern die Inhalte, aber erst ein Neuladen verändert die Reihenfolge. Unter 540 Pixeln als Handy-Rückfall einspaltig. Keine Animationen und kein Framework hinzugefügt.
+
+Die bisherige Morgenansicht wurde vom Nutzer als auf dem iPad funktionsfähig bestätigt. Die neue Anordnung benötigt weiterhin dessen Geräteprüfung: beide Ausrichtungen, Müll oben links bei heute/morgen, sonst Start oben links, Termine oben rechts, Radio in der zweiten Reihe, Nachrichten ganz unten.

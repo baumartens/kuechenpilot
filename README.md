@@ -6,7 +6,7 @@ Persönliche Küchen-Web-App für iPad 5 (2017), iPadOS 16.7.16 und Safari.
 
 ## Stand
 
-Phase 3 ist auf dem echten iPad freigegeben. Phase 4 ist bewusst pausiert und nicht vollständig abgenommen. Neues Hauptziel ist der persönliche Morgenassistent: Das Dashboard priorisiert Aufgaben/Müll, E-Mails, Termine, Wetter und Nachrichten. Konten sind noch nicht verbunden; KI-Sprachbriefing ist noch nicht verfügbar. Die neue Morgenansicht wartet auf die Geräteabnahme. Kontozugriffe und externe Dienste werden erst nach gesonderter Freigabe eingerichtet.
+Phase 3 ist auf dem echten iPad freigegeben. Phase 4 ist bewusst pausiert und nicht vollständig abgenommen. Neues Hauptziel ist der persönliche Morgenassistent: Das zweispaltige Dashboard priorisiert Müll/Aufgaben oder persönlichen Start, hält Termine oben rechts und zeigt Radio, E-Mails, Wetter und zuletzt Nachrichten. Die Anordnung wird einmal beim Laden festgelegt. Konten sind noch nicht verbunden; KI-Sprachbriefing ist noch nicht verfügbar. Die neue Morgenansicht wartet auf die Geräteabnahme. Kontozugriffe und externe Dienste werden erst nach gesonderter Freigabe eingerichtet.
 
 Die vollständige Reihenfolge steht in [ROADMAP.md](ROADMAP.md), die Prüfprotokolle in [PHASE3_TESTS.md](PHASE3_TESTS.md) und [PHASE4_TESTS.md](PHASE4_TESTS.md).
 
