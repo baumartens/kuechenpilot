@@ -6,7 +6,7 @@ Persönliche Küchen-Web-App für iPad 5 (2017), iPadOS 16.7.16 und Safari.
 
 ## Stand
 
-Phase 3 ist auf dem echten iPad freigegeben. Phase 4 ist bewusst pausiert und nicht vollständig abgenommen. Neues Hauptziel ist der persönliche Morgenassistent: Das zweispaltige Dashboard priorisiert Müll/Aufgaben oder persönlichen Start, hält Termine oben rechts und zeigt Radio, E-Mails, Wetter und zuletzt Nachrichten. Die Anordnung wird einmal beim Laden festgelegt. Konten sind noch nicht verbunden; KI-Sprachbriefing ist noch nicht verfügbar. Die neue Morgenansicht wartet auf die Geräteabnahme. Kontozugriffe und externe Dienste werden erst nach gesonderter Freigabe eingerichtet.
+Phase 3 ist auf dem echten iPad freigegeben. Phase 4 ist bewusst pausiert und nicht vollständig abgenommen. Neues Hauptziel ist der persönliche Morgenassistent: Das zweispaltige Dashboard priorisiert Müll/Aufgaben oder persönlichen Start, hält Termine oben rechts und zeigt Radio, E-Mails, Wetter und zuletzt Nachrichten. Die Anordnung wird einmal beim Laden festgelegt. Das dynamische Dashboard ist vom Nutzer auf dem iPad freigegeben. Persönliche Apple-Kalendertermine können jetzt über eine lokale Kurzbefehle-Exportdatei importiert werden; keine automatische Synchronisierung. Gmail ist unverbunden und KI-Sprachbriefing nicht verfügbar. Der neue Kalenderimport wartet auf Geräteabnahme. Kontozugriffe und externe Dienste werden erst nach gesonderter Freigabe eingerichtet.
 
 Die vollständige Reihenfolge steht in [ROADMAP.md](ROADMAP.md), die Prüfprotokolle in [PHASE3_TESTS.md](PHASE3_TESTS.md) und [PHASE4_TESTS.md](PHASE4_TESTS.md).
 
@@ -38,7 +38,7 @@ Jede Quelle behält einen eigenen Erfolgszeitpunkt. Bei Fehlern bleiben ihre vor
 Python 3.9 oder neuer und Node.js 18 oder neuer; keine zusätzlich zu installierenden Pakete:
 
 ```sh
-node --test test_kitchen.cjs test_import.cjs test_morning.cjs
+TZ=Europe/Berlin node --test test_kitchen.cjs test_import.cjs test_morning.cjs test_appointments.cjs
 python3 -m unittest -v test_fetch.py
 python3 fetch_data.py
 python3 -m http.server 8765 --bind 127.0.0.1 --directory public
@@ -57,3 +57,7 @@ Wetter: [Open-Meteo](https://open-meteo.com/), CC BY 4.0; modellbasierte Werte. 
 Radioadressen laut [hr3](https://www.hr3.de/service/faq-zu-hr3de-v1,hilfe-124.html), [hr1-Livestream](https://www.hr3.de/service/livestream-v1,livestream-114.html) und [Deutschlandfunk](https://www.deutschlandfunk.de/livestream-100.html).
 
 Aktuelle Dashboard-Prüfung und Anbindungsvorschlag: [MORGEN_TESTS.md](MORGEN_TESTS.md).
+
+## Persönliche Apple-Termine
+
+[Kurzbefehl-Anleitung](https://baumartens.github.io/kuechenpilot/APPLE_KALENDER.html) · [Prüfprotokoll](APPLE_TESTS.md). In der Terminkachel „Termine importieren“ wählen. Eigene Speicherung unter `kuechenpilot-appointments-v1`, vollständig getrennt vom Abfallkalender. Ein bestätigter Import ersetzt den bisherigen persönlichen Stand. Keine privaten Datenübertragungen und keine neuen Dienste.

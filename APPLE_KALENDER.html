@@ -1,0 +1,53 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Apple-Kalender · Küchenpilot</title><style>body{background:#22241f;color:#eee8db;font:17px/1.6 -apple-system,sans-serif;max-width:800px;margin:auto;padding:25px}a{color:#e2c48e}h1,h2{color:#e2c48e;line-height:1.3}li{margin:16px 0}pre{overflow:auto;background:#161813;padding:16px}code{overflow-wrap:anywhere}</style><main><h1>Apple-Kalender → Küchenpilot</h1>
+<p>Manuelle Aktualisierung ohne Server: Kurzbefehl ausführen, Datei auf dem iPad speichern, in Küchenpilot importieren. Keine öffentliche Kalenderfreigabe, kein Upload und keine automatische Synchronisierung.</p>
+<p><strong>Prüfgrenze:</strong> Die folgenden Standardaktionen sind der vorgesehene Aufbau für iPadOS 16. Die konkrete Einrichtung und Ausführung auf deinem iPad 5 ist noch nicht geprüft. Aktuelle Apple-Handbücher können abweichende Aktionsnamen zeigen. Es wird keine bereits auf iPadOS 16 getestete .shortcut-Datei angeboten.</p>
+<h2>1. Kurzbefehl „Küchenpilot Termine“ anlegen</h2>
+<p>In „Kurzbefehle“ auf + tippen. Kalenderzugriff nur diesem selbst erstellten Kurzbefehl erlauben. Keine Aktionen zum Erstellen, Ändern oder Löschen von Terminen verwenden.</p>
+<ol>
+<li><strong>Datum</strong>: aktuelles Datum. Als Variable <code>Exportzeit</code> festhalten.</li>
+<li><strong>Datum anpassen</strong>: Anfang des Tages von Exportzeit abrufen. Als <code>Von</code> festhalten.</li>
+<li><strong>Datum anpassen</strong>: 8 Tage zu Von addieren. Als <code>BisExklusiv</code> festhalten. So werden heute plus die nächsten sieben Tage erfasst.</li>
+<li><strong>Kalenderereignisse suchen</strong>: „Alle“ Bedingungen: Startdatum liegt vor BisExklusiv UND Enddatum liegt nach Von. Das erfasst auch mehrtägige, bereits begonnene Termine. Gewünschten persönlichen Kalender als Filter wählen; den Müllkalender nicht auswählen. Sortierung Startdatum, aufsteigend; Begrenzung ausschalten. Bei mehreren persönlichen Kalendern zunächst einen Kalender ohne Filter testen und anschließend die Auswahl passend eingrenzen.</li>
+<li>Falls „Enddatum“ in deiner Version nicht als Suchfilter angeboten wird: Ereignisse zunächst über Startdatum vor BisExklusiv suchen, dann innerhalb der Wiederholung nur Ereignisse mit Enddatum nach Von übernehmen. Keinen festen kurzen Rückblick verwenden: Er würde lange mehrtägige Ereignisse verlieren. Falls die Ausgabe zu umfangreich wird, bitte nicht ungeprüft fortfahren.</li>
+<li><strong>Wörterbuch</strong> anlegen, Variable <code>Export</code>: Schlüssel <code>schema</code> (Text) = <code>kuechenpilot-calendar-v1</code>; <code>events</code> (Array) = leer. Diese Initialisierung ist wichtig für Tage ohne Termine.</li>
+<li><strong>Datum formatieren</strong> für Exportzeit: Benutzerdefiniert <code>yyyy-MM-dd'T'HH:mm:ssXXX</code>. Mit „Wörterbuchwert festlegen“ als <code>exportedAt</code> in Export speichern und das resultierende Wörterbuch wieder als Variable Export setzen.</li>
+<li>Von mit <code>yyyy-MM-dd</code> formatieren und genauso als <code>from</code> in Export speichern. 7 Tage zu Von addieren, mit <code>yyyy-MM-dd</code> formatieren und als <code>through</code> speichern. Nach jedem „Wörterbuchwert festlegen“ Export auf das Ergebnis aktualisieren.</li>
+</ol>
+<h2>2. Gefundene Ereignisse umwandeln</h2>
+<p>„Mit jedem wiederholen“ über die gefundenen Kalenderereignisse. Die Ereignisliste ausdrücklich als Eingabe auswählen, nicht das zuletzt erstellte Wörterbuch.</p>
+<ol>
+<li>Über „Details von Kalenderereignissen abrufen“ jeweils vom Wiederholungsobjekt: Titel, Startdatum, Enddatum, „Ganztägig“, Ort und Notizen abrufen. Die Eigenschaften lassen sich alternativ direkt an der magischen Variable auswählen.</li>
+<li><strong>Wenn Ganztägig wahr ist:</strong> Start- und Enddatum mit <code>yyyy-MM-dd</code> formatieren. Das Enddatum ist exklusiv: Ein einzelner Ganztag am 19.11. hat Ende 20.11. Wenn die Aktion auf deinem iPad anders liefert, vor dem Import am Testtermin prüfen und das Ende auf den Folgetag des letzten belegten Tages setzen. Sonst: beide Daten mit <code>yyyy-MM-dd'T'HH:mm:ssXXX</code> formatieren; die Zeitzone darf nicht fehlen.</li>
+<li><strong>Wörterbuch</strong> für das Ereignis erstellen. Textfelder <code>title</code>, <code>start</code>, <code>end</code>, <code>location</code> und <code>notes</code> mit den obigen Werten belegen. <code>allDay</code> als Typ „Boolesch“ mit der Ganztägig-Eigenschaft belegen, nicht als Text „Ja“/„Nein“. Falls die Eigenschaft nicht direkt zuweisbar ist, im Wenn-/Sonst-Zweig den booleschen Wert explizit wahr/falsch setzen. Fehlenden Ort und fehlende Notizen als leeren Text belassen.</li>
+<li>Dieses Wörterbuch mit „Zu Variable hinzufügen“ zur Variable <code>Termine</code> hinzufügen.</li>
+</ol>
+<p>Nach „Wiederholung beenden“: Wenn die Anzahl der gefundenen Ereignisse größer als null ist, mit „Wörterbuchwert festlegen“ den Schlüssel <code>events</code> in Export auf die Liste Termine setzen; Ergebnis wieder als Export festhalten. Bei null Ereignissen bleibt das initialisierte leere Array erhalten. Wenn zusätzliche Filter innerhalb der Schleife benutzt wurden, stattdessen die Anzahl der tatsächlich übernommenen Termine prüfen.</p>
+<h2>3. Als lokale JSON-Datei speichern</h2>
+<ol>
+<li>„Text“ mit ausschließlich der Variable Export als Inhalt verwenden. Das Wörterbuch soll als JSON-Text ausgegeben werden. Mit „Übersicht“/„Schnellansicht“ kontrollieren: Ausgabe beginnt mit <code>{</code>, enthält <code>schema</code> und ein <code>events</code>-Array. Keine Kalenderereignisse direkt als Text konvertieren und kein JSON durch manuelles Zusammenkleben von Titeln erzeugen.</li>
+<li>„Name festlegen“: <code>kuechenpilot-termine.json</code>.</li>
+<li>„Datei sichern“/„Datei speichern“: „Nach Speicherort fragen“ aktivieren. In „Auf meinem iPad“ speichern, wenn die Datei ausschließlich lokal bleiben soll. iCloud Drive synchronisiert Dateien über Apple und ist deshalb nicht rein lokale Ablage.</li>
+<li>Küchenpilot in Safari öffnen → persönliche Terminkachel → „Termine importieren“ → Datei auswählen → Zeitraum und Anzahl prüfen → „Import übernehmen“.</li>
+</ol>
+<p>Nach Änderungen im Apple-Kalender beide Schritte wiederholen: <strong>neu exportieren und neu importieren</strong>. Safari kann die Datei nicht selbständig beobachten. Auch eine Kurzbefehle-Automation würde nur den Export automatisieren, nicht den Import in diese Web-App.</p>
+<h2>Referenzformat (nur erfundene Beispieldaten)</h2>
+<pre>{
+  "schema": "kuechenpilot-calendar-v1",
+  "exportedAt": "2026-11-19T08:00:00+01:00",
+  "from": "2026-11-19",
+  "through": "2026-11-26",
+  "events": [
+    {"title":"Beispieltermin", "start":"2026-11-19T10:00:00+01:00",
+     "end":"2026-11-19T11:00:00+01:00", "allDay":false,
+     "location":"Beispielort", "notes":"Nur ein Test"},
+    {"title":"Beispiel-Ganztag", "start":"2026-11-20",
+     "end":"2026-11-21", "allDay":true, "location":"", "notes":""}
+  ]
+}</pre>
+<p>Ein Export ohne Termine muss <code>"events": []</code> enthalten. Importieren ersetzt die persönliche Liste vollständig, damit entfernte Termine verschwinden. Wiederholungen müssen von der Kalender-Suche als einzelne Vorkommen geliefert werden; Küchenpilot ergänzt keine eigenen Serien. Datum, Uhrzeit, Serienausnahmen und Ganztagstermine bitte vor Nutzung mit der Kalender-App vergleichen.</p>
+<h2>Privatsphäre und Geräteprüfung</h2>
+<p>Die Termine liegen danach im lokalen Safari-Speicher und sind auf dem gemeinsam genutzten iPad sichtbar. Hinweise sind erst nach Antippen aufgeklappt. Kein automatisches Vorlesen. Safari-Websitedaten löschen entfernt diesen Import; die Apple-Kalender-App bleibt unverändert. Die Importdatei kann private Inhalte enthalten: nicht in GitHub oder den Chat hochladen.</p>
+<p>Zuerst einen erfundenen Testtermin mit Uhrzeit, Ort und mehrzeiliger Notiz sowie einen Ganztagstermin anlegen. Export ausführen, importieren, neu laden, alle drei Zeitfilter prüfen. Anschließend einen Testtermin ändern/löschen und erneut exportieren/importieren. Der Müllkalender muss unverändert bleiben.</p>
+<p>Apple-Referenzen: <a href="https://support.apple.com/de-de/guide/shortcuts/apd3c845e881/ios">Suchen und Filtern</a> · <a href="https://support.apple.com/guide/shortcuts/custom-date-formats-apd8d9b19184/ios">Datumsformate</a>. Die konkrete Kurzbefehle-Oberfläche auf iPadOS 16 ist damit nicht als getestet bestätigt.</p>
+<p><a href="index.html#morgen">Zurück zu Küchenpilot</a></p>
+</main></html>

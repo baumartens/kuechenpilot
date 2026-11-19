@@ -62,7 +62,7 @@ Neues Hauptziel laut Nutzerpriorisierung vom 18. November 2026. Zuerst Morgen-Da
 - Unverbundene Konten ehrlich kennzeichnen; keine erfundenen Anzahlen oder Termine.
 - Sichtbarer Button „Morgenbriefing starten“, bis zur Umsetzung deaktiviert und erklärt. Spätere Sprechreihenfolge entspricht der Dashboard-Priorität.
 - Anthrazit-Holz-Gold-Design, iPad 5/Safari, bestehende Küchenfunktionen erhalten.
-- Bisherige Morgenansicht laut Nutzer auf iPad funktionsfähig. Die neue zweispaltige Anordnung wartet auf eigene Geräteabnahme. Anbindungsprüfung: [MORGEN_TESTS.md](MORGEN_TESTS.md).
+- Bisherige Morgenansicht laut Nutzer auf iPad funktionsfähig. Die dynamische zweispaltige Anordnung wurde am 19. November 2026 vom Nutzer auf dem iPad bestätigt und bleibt unverändert. Anbindungsprüfung: [MORGEN_TESTS.md](MORGEN_TESTS.md).
 
 ### Persönliches KI-Morgenbriefing
 
@@ -78,7 +78,16 @@ Neues Hauptziel laut Nutzerpriorisierung vom 18. November 2026. Zuerst Morgen-Da
 - Verständlich zurückmelden, wenn keine wichtigen neuen E-Mails vorliegen; einen fehlgeschlagenen Abruf klar davon unterscheiden.
 - Niemals E-Mails automatisch versenden, verändern, löschen oder als gelesen markieren.
 
-### Persönliche Termine
+### Persönliche Termine – Apple-Kalender als aktueller Entwicklungsschritt
+
+- Ausschließlich nativer Apple-Kalender; manueller Export über einen selbst erstellten Apple-Kurzbefehl als lokale JSON-Datei. Kein Google-Kalenderdienst erforderlich.
+- Lokaler Import mit eigenem Speicherbereich, Export-/Importstand, Heute/Morgen/nächste sieben Tage, Uhrzeit, Titel, Ort, Hinweisen, Ganztags- und mehrtägigen Terminen sowie hervorgehobenem nächsten Termin.
+- Müllkalender, bestehende Küchenfunktionen und bestätigte Dashboard-Anordnung bleiben separat erhalten.
+- Keine automatische Synchronisierung: Änderungen benötigen erneuten Export und Import; keine privaten Dateien in GitHub.
+- Anleitung in APPLE_KALENDER.html. Import technisch geprüft; echter Kurzbefehle-Durchlauf und Geräteabnahme auf iPadOS 16.7.16 noch offen. Keine vorgetäuschte native Direktverbindung.
+- Gmail und gesprochenes KI-Briefing folgen als separate spätere Schritte.
+
+### Weitere Terminfunktionen
 
 - Termine für heute, morgen und die nächsten sieben Tage abrufen.
 - Uhrzeit und Bezeichnung anzeigen und im Morgenbriefing an bevorstehende Termine erinnern.
